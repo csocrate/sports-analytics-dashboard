@@ -1,0 +1,61 @@
+// --------------------------------------------------
+// SETTING FOR GLOBAL STYLE
+// --------------------------------------------------
+
+/**
+  * Breakpoints
+  * 
+  */
+$breakpoint-lg:                       '1024px'; 
+$breakpoint-xl:                       '1400px';
+$breakpoint-xxl:                      '1600px';
+
+/**
+  * Colors
+  * 
+  */
+$white:                                #FFF;
+$black:                                #000;
+
+$primary-color:                        #E60000;
+$secondary-color:                      lighten($black, .98%); // #020202
+$tertiary-color:                       #282D30;
+
+$gray:                                 lighten($black, 77%); // #C4C4C4
+
+/**
+  * Typography
+  * 
+  */
+$font-family-txt:                      'Roboto', sans-serif;
+
+$font-size-init:                       16px;
+$font-size-normal:                     1em;
+
+$line-height-normal:                   1;
+
+/**
+  * .body
+  * 
+  */
+$font-size-body:                       $font-size-init;
+$font-style-body:                      normal;
+$font-weight-body:                     400;
+$line-height-body:                     $line-height-normal * 1.188;
+$color-body:                           $black;
+$bg-color-body:                        $white;
+
+/**
+  * Other bases
+  * 
+  */
+
+//== h1 ==
+$font-size-h1-user-lg:                 $font-size-normal * 3;
+$font-size-h1-user-line-height:        $line-height-normal * 1.5;
+$font-weight-h1-user:                  500;
+$font-size-h1-firstname-color:         $primary-color;
+
+//== p ==
+$font-size-p-user-lg:                  $font-size-normal * 1.125;
+$font-size-p-user-line-height:         $line-height-normal * 1.5;

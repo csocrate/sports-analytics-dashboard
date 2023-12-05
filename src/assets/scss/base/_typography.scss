@@ -1,0 +1,19 @@
+.profile {
+  h1 {
+    font-size: $font-size-h1-user-lg;
+    font-weight: $font-weight-h1-user;
+    line-height: $font-size-h1-user-line-height;
+
+    span {
+      &:last-child {
+        margin-left: .5rem;
+        color: $font-size-h1-firstname-color;
+      }
+    }
+  }
+
+  p {
+    font-size: $font-size-p-user-lg;
+    line-height: $font-size-p-user-line-height;
+  }
+}

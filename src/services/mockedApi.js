@@ -2,31 +2,39 @@ import {
   USER_MAIN_DATA,
   USER_ACTIVITY,
   USER_AVERAGE_SESSIONS,
-  USER_PERFORMANCE }
-from "../mocks/userData";
+  USER_PERFORMANCE,
+} from '../mocks/userData';
+
+const fetchData = async (ID, DATAS) => {
+  const datas = DATAS.find((data) => data.id === ID || data.userId === ID);
+
+  try {
+    const response = {
+      json: async () => ({
+        data: [datas],
+      }),
+    };
+
+    const userData = await response.json();
+    const data = userData.data[0];
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const fetchUserMainData = async (USER_ID) => {
-  const datas = USER_MAIN_DATA.filter(data => data.id === USER_ID)
-  const userMainData = datas[0];
-  return userMainData;
-}
+  return fetchData(USER_ID, USER_MAIN_DATA);
+};
 
 export const fetchUserActivity = async (USER_ID) => {
-  const datas = USER_ACTIVITY.filter(data => data.userId === USER_ID)
-  const userActivity = datas[0];
-  return userActivity;
-}
+  return fetchData(USER_ID, USER_ACTIVITY);
+};
 
 export const fetchUserAverageSessions = async (USER_ID) => {
-  const datas = USER_AVERAGE_SESSIONS.filter(data => data.userId === USER_ID)
-  const userActivity = datas[0];
-  return userActivity;
-}
+  return fetchData(USER_ID, USER_AVERAGE_SESSIONS);
+};
 
 export const fetchUserPerformance = async (USER_ID) => {
-  const datas = USER_PERFORMANCE.filter(data => data.userId === USER_ID)
-  const userActivity = datas[0];
-  return userActivity;
-}
-
-
+  return fetchData(USER_ID, USER_PERFORMANCE);
+};

@@ -1,0 +1,27 @@
+.key-data-card {
+  display: flex;
+  height: 3.4rem;
+  width: 10.25rem;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin: 1rem;
+
+  div {
+    &:first-child {
+      order: 2;
+      align-self: center;
+      width: 60%;
+    }
+
+    &:last-child {
+      width: 40%;
+      height: 100%;
+      align-self: center;
+      border-radius: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: $bg-color-energy-icon;
+    }
+  }
+}

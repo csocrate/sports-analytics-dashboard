@@ -22,6 +22,7 @@ $secondary-color:                      lighten($black, .98%); // #020202
 $tertiary-color:                       #282D30;
 
 $gray:                                 lighten($black, 77%); // #C4C4C4
+$pink:                                 lighten($primary-color, 50%); // #FFE6E6
 
 /**
   * Typography
@@ -59,3 +60,10 @@ $font-size-h1-firstname-color:         $primary-color;
 //== p ==
 $font-size-p-user-lg:                  $font-size-normal * 1.125;
 $font-size-p-user-line-height:         $line-height-normal * 1.5;
+
+// --------------------------------------------------
+// COMPONENTS
+// --------------------------------------------------
+
+//== Key data card ==
+$bg-color-energy-icon:                 $pink;

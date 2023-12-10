@@ -21,7 +21,22 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: $bg-color-energy-icon;
+
+      &.calories {
+        background-color: $bg-color-calories;
+      }
+
+      &.proteins {
+        background-color: $bg-color-proteins;
+      }
+
+      &.carbohydrates {
+        background-color: $bg-color-carbohydrates;
+      }
+
+      &.lipids {
+        background-color: $bg-color-lipids;
+      }
     }
   }
 }

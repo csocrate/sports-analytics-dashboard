@@ -1,0 +1,17 @@
+.graphics {
+  min-height: 32rem;
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+
+  &__key-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 12rem;
+    height: 32rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}

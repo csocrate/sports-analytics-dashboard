@@ -22,7 +22,10 @@ $secondary-color:                      lighten($black, .98%); // #020202
 $tertiary-color:                       #282D30;
 
 $gray:                                 lighten($black, 77%); // #C4C4C4
-$pink:                                 lighten($primary-color, 50%); // #FFE6E6
+$pink:                                 lighten($primary-color, 50%); // #FFE6E6 
+$blue:                                 rgba(74, 184, 255, .1); // #4AB8FF1A
+$yellow:                               rgba(249, 206, 35, .2); // #F9CE2333;
+$mauve:                                rgba(253, 81, 129, .15); // #FD518124;
 
 /**
   * Typography
@@ -66,4 +69,11 @@ $font-size-p-user-line-height:         $line-height-normal * 1.5;
 // --------------------------------------------------
 
 //== Key data card ==
-$bg-color-energy-icon:                 $pink;
+$font-size-keydata-value:              $font-size-normal * 1.25;
+$font-weight-keydata-value:            700;
+$font-weight-keydata-title:            500;
+$color-keydata-title:                  #74798C;
+$bg-color-calories:                    $pink;
+$bg-color-proteins:                    $blue;
+$bg-color-carbohydrates:               $yellow;
+$bg-color-lipids:                      $mauve;

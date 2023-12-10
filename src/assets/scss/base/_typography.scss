@@ -16,4 +16,15 @@
     font-size: $font-size-p-user-lg;
     line-height: $font-size-p-user-line-height;
   }
+
+  .key-data-card {
+    p {
+      font-weight: $font-weight-keydata-value;
+    }
+
+    small {
+      font-weight: $font-weight-keydata-title;
+      color: $color-keydata-title;
+    }
+  }
 }

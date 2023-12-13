@@ -8,7 +8,7 @@ function Profile() {
 
   const firstName = data && data.userInfos.firstName;
   const keyData = data && data.keyData;
-  const score = data && data.score;
+  const score = data?.score ?? data?.todayScore;
 
   return (
     <div className="profile">

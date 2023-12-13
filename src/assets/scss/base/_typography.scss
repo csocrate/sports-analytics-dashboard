@@ -27,4 +27,11 @@
       color: $color-keydata-title;
     }
   }
+  .graphics__score {
+    p {
+      font-size: $font-size-score;
+      font-weight: $font-weight-score;
+      color: $color-p-score;
+    }
+  }
 }

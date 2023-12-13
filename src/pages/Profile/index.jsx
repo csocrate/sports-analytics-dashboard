@@ -1,14 +1,18 @@
 import { useMockedData } from '../../hooks/useMockedData';
-import { USER_MAIN_DATA } from '../../mocks/userData';
+import { USER_AVERAGE_SESSIONS, USER_MAIN_DATA } from '../../mocks/userData';
 import KeyDataCards from '../../components/KeyDataCards';
 import RadialBarChart from '../../components/RadialBarChart';
+import LineChart from '../../components/LineChart';
 
 function Profile() {
-  const { data } = useMockedData(18, USER_MAIN_DATA);
+  const { data: userMainData } = useMockedData(18, USER_MAIN_DATA);
+  const { data: userSessions } = useMockedData(18, USER_AVERAGE_SESSIONS);
 
-  const firstName = data && data.userInfos.firstName;
-  const keyData = data && data.keyData;
-  const score = data?.score ?? data?.todayScore;
+  const firstName = userMainData && userMainData.userInfos.firstName;
+  const keyData = userMainData && userMainData.keyData;
+  const score = userMainData?.score ?? userMainData?.todayScore;
+
+  const sessionDatas = userSessions?.sessions;
 
   return (
     <div className="profile">
@@ -22,6 +26,7 @@ function Profile() {
         </div>
         <div className="graphics">
           <KeyDataCards datas={keyData} />
+          <LineChart datas={sessionDatas} />
           <RadialBarChart value={score} />
         </div>
       </div>

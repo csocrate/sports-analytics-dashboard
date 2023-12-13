@@ -8,14 +8,14 @@ export function useMockedData(ID, DATAS) {
   useEffect(() => {
 
     try {
-      const data = DATAS.find((data) => data.id === ID || data.userId === ID);
+      const userData = DATAS.find((data) => data.id ? data.id === ID : data.userId === ID);
 
-      return setData(data);
+      return setData(userData);
 
     } catch (error) {
       setError(error);
     }
 
-  });
+  }, [ID, DATAS]);
   return { data, error };
 }

@@ -1,0 +1,31 @@
+.line-chart {
+  border-radius: 5px;
+  fill: #FFF;
+  background-color: #E60000;
+
+  text {
+    font-size: 12px;
+    fill:#FFF;
+  }
+
+  .tooltip-dot {
+    opacity: 0;
+    pointer-events: none;
+
+    &.visible {
+      opacity: 1;
+    }
+  }
+
+  rect {
+    opacity: 0;
+
+    &.tooltip-rect {
+      fill: rgb(255 ,255, 255,.2);
+
+      &.visible {
+        opacity: 1;
+      }
+    }
+  }
+}

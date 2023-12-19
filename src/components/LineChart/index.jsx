@@ -17,12 +17,14 @@ function LineChart({ datas }) {
       height = 263 - margin.top - margin.bottom;
 
     // Declares the x (horizontal position) scale.
-    const x = d3
-      .scaleBand()
-      .domain(datas.map((d) => d.day))
-      .range([0, width])
-      .padding(0);
-    // .paddingInner(1);
+    const x = d3.scaleUtc(
+      d3.extent(datas, (d) => d.day),
+      [margin.left, width - margin.right],
+    );
+    const xAxis = d3.scaleUtc(
+      d3.extent(datas, (d) => d.day),
+      [margin.left + 20, width - (margin.left + 20)],
+    );
 
     // Declares the y (vertical position) scale.
     const y = d3
@@ -41,13 +43,58 @@ function LineChart({ datas }) {
       .curve(d3.curveBasis);
 
     const dayLetters = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
+    const topTitle = 'Durée moyenne des';
+    const bottomTitle = 'sessions';
+    const tooltip = d3.select('.tooltip');
+    const tooltipGroup = svg.append('g');
+
+    const tooltipDot = tooltipGroup
+      .append('circle')
+      .attr('class', 'tooltip-dot')
+      .attr('r', 5)
+      .attr('cx', 0)
+      .attr('cy', 0)
+      .attr('fill', '#FFF')
+      .attr('stroke', '#F9F9F9')
+      .attr('stroke-width', '3');
+
+    const tooltipRect = tooltipGroup
+      .append('rect')
+      .attr('class', 'tooltip-rect')
+      .attr('width', '0')
+      .attr('height', height + margin.top + margin.bottom);
+
+    const mousePosition = (e) => {
+      const mouseCoordinates = d3.pointer(e);
+      // console.log(mouseCoordinates);
+      const xCoordinate = x.invert(mouseCoordinates[0]);
+      const dayBisector = d3.bisector((d) => d.day).right;
+      const index = dayBisector(datas, xCoordinate);
+      const currentData = datas[Math.max(0, index - 1)];
+      // console.log(currentData);
+
+      tooltipDot
+        .classed('visible', true)
+        .attr('cx', x(currentData.day))
+        .attr('cy', y(currentData.sessionLength))
+        .raise();
+
+      tooltip
+        .classed('visible', true)
+        .style('top', `${y(currentData.sessionLength) - 50}px`)
+        .style('left', `${x(currentData.day)}px`);
+
+      tooltip.select('p').text(`${currentData.sessionLength} min`);
+
+      tooltipRect
+        .classed('visible', true)
+        .attr('width', x(currentData.day))
+        .attr('height', height + margin.top + margin.bottom);
+    };
 
     svg
       .attr('width', width)
-      .attr('height', height + margin.top + margin.bottom)
-      .style('border-radius', '5px')
-      .style('fill', '#FFF')
-      .style('background', '#E60000');
+      .attr('height', height + margin.top + margin.bottom);
 
     // Adds the x-axis
     svg
@@ -56,6 +103,7 @@ function LineChart({ datas }) {
       .call(
         d3
           .axisBottom(x)
+          .scale(xAxis)
           .tickValues([1, 2, 3, 4, 5, 6, 7])
           .tickFormat((d) => dayLetters[d - 1])
           .tickSize(0)
@@ -64,15 +112,8 @@ function LineChart({ datas }) {
       .select('.domain')
       .remove();
 
-    svg.selectAll('.tick text').style('font-size', '12').style('fill', '#FFF');
-
-    svg
-      .append('text')
-      .attr('x', 30)
-      .attr('y', 45)
-      .text('Durée moyenne des sessions')
-      .style('font-size', '12px')
-      .attr('class', 'score-title');
+    svg.append('text').attr('x', 30).attr('y', 45).text(topTitle);
+    svg.append('text').attr('x', 30).attr('y', 65).text(bottomTitle);
 
     // Adds line
     svg
@@ -82,12 +123,21 @@ function LineChart({ datas }) {
       .attr('stroke', '#FFF')
       .attr('stroke-width', 1.5)
       .attr('d', line);
+
+    // Adds a coverage area
+    svg
+      .append('rect')
+      .attr('width', width)
+      .attr('height', height + margin.top + margin.bottom)
+      .on('mousemove', mousePosition);
   }, [datas]);
 
   return (
     <div className="graphics__sessions">
-      {/* <svg></svg> */}
-      <svg ref={svgRef}></svg>
+      <svg className="line-chart" ref={svgRef}></svg>
+      <div className="tooltip">
+        <p></p>
+      </div>
     </div>
   );
 }

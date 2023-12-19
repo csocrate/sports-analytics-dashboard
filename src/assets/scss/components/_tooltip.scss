@@ -1,0 +1,19 @@
+.tooltip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3.5rem;
+  height: 2rem;
+  margin-left: .5rem;
+  padding: .25rem;
+  background-color: rgb(255, 255, 255);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+
+  &.visible,
+  &:hover {
+    opacity: 1;
+    visibility: visible;
+  }
+}

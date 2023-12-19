@@ -34,4 +34,12 @@
       color: $color-p-score;
     }
   }
+
+  .tooltip {
+    p {
+      font-size: .8em;
+      text-align: center;
+      font-weight: 500;
+    }
+  }
 }

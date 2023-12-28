@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
-const margin = { top: 10, bottom: 20, left: 10, right: 40 };
+const margin = { top: 70, bottom: 20, left: 10, right: 40 };
 
 function BarChart({ datas, width, height }) {
   const svgRef = useRef(null);
@@ -20,13 +20,13 @@ function BarChart({ datas, width, height }) {
       acc.push({
         day: d.day,
         value: d.kilogram,
-        name: 'Poids(kg)',
+        name: 'Poids (kg)',
         color: '#000',
       });
       acc.push({
         day: d.day,
         value: d.calories,
-        name: 'Calories brûlées(kCal)',
+        name: 'Calories brûlées (kCal)',
         color: '#E60000',
       });
       return acc;
@@ -52,6 +52,8 @@ function BarChart({ datas, width, height }) {
       .domain(Array.from(names))
       .range(Array.from(colors));
 
+    const svgTitle = 'Activité quotidienne';
+
     // Adds X axis
     const fx = d3
       .scaleBand()
@@ -65,11 +67,13 @@ function BarChart({ datas, width, height }) {
       .padding(0.75);
     svg
       .append('g')
-      .attr('transform', `translate(0,${boundHeight - margin.top})`)
+      .attr('transform', `translate(0,${boundHeight + margin.bottom})`)
       .call(d3.axisBottom(fx).tickSize(0).tickPadding(25))
       .call((g) => g.selectAll('.domain').remove())
       .selectAll('.tick text')
-      .style('font-size', '14px');
+      .style('font-size', '14px')
+      .style('font-weight', '700')
+      .attr('fill', '#9B9EAC');
 
     // Adds Y axis
     const y = d3
@@ -80,7 +84,7 @@ function BarChart({ datas, width, height }) {
     svg
       .append('g')
       .attr('transform', `translate(${boundWidth}, 0)`)
-      .call(d3.axisRight(y).tickSize(0))
+      .call(d3.axisLeft(y).tickSize(0))
       .call((g) => g.selectAll('.domain').remove())
       .call((g) =>
         g
@@ -89,12 +93,16 @@ function BarChart({ datas, width, height }) {
             'transform',
             `translate(-${boundWidth + margin.right + margin.left}, -0)`,
           )
-          .attr('x2', boundWidth + margin.right + margin.left)
+          .attr('x1', (margin.right + margin.left) * 1.75)
+          .attr('x2', boundWidth - (margin.right + margin.left) * 0.35)
+          .attr('stroke', '#9B9EAC')
           .attr('stroke-opacity', 0.5)
           .attr('stroke-dasharray', '2,2'),
       )
       .selectAll('.tick text')
-      .style('font-size', '14px');
+      .style('font-size', '14px')
+      .style('font-weight', '700')
+      .attr('fill', '#9B9EAC');
 
     // Appends a group for each day, and a rect for each name
     svg
@@ -116,28 +124,39 @@ function BarChart({ datas, width, height }) {
     // Adds legend
     const legend = svg
       .append('g')
-      .attr('transform', `translate(${boundWidth - margin.right * 4},0)`)
-      .attr('text-anchor', 'end')
-      .attr('font-family', 'sans-serif')
-      .attr('font-size', 10)
+      .attr('transform', `translate(${boundWidth - margin.right * 4.5},0)`)
       .selectAll('g')
       .data(Array.from(names))
       .join('g')
-      .attr('class', 'legend-item')
-      .attr('transform', (d, i) => `translate(0, ${i * 20})`);
+      .attr('transform', (d, i) => `translate(${i * 95}, 0)`);
     legend
       .append('circle')
       .attr('r', 5)
-      .attr('cx', 0)
+      .attr('cx', -50)
       .attr('cy', 10)
-      .style('fill', (d) => colorScale(d));
+      .attr('fill', (d) => colorScale(d));
     legend
       .append('text')
-      .attr('x', 10)
+      .attr('x', -34)
       .attr('y', 10)
       .attr('dy', '.35em')
-      .style('text-anchor', 'start')
+      .style('font-size', '12px')
+      .style('font-weight', '700')
+      .attr('fill', '#74798C')
       .text((d) => d);
+
+    // Adds title
+    const title = svg
+      .append('g')
+      .attr('transform', `translate(${boundHeight - margin.top * 2.35},0)`);
+    title
+      .append('text')
+      .attr('x', -30)
+      .attr('y', 15)
+      .text(svgTitle)
+      .style('font-size', '15px')
+      .style('font-weight', '700')
+      .attr('fill', '#20253A');
   }, [barChartDatas, boundHeight, boundWidth]);
 
   return (

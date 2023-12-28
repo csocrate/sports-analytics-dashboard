@@ -45,6 +45,12 @@ function BarChart({ datas, width, height }) {
 
     // List of names
     const names = new Set(barChartDatas.map((d) => d.name));
+    // List of colors
+    const colors = new Set(barChartDatas.map((d) => d.color));
+    const colorScale = d3
+      .scaleOrdinal()
+      .domain(Array.from(names))
+      .range(Array.from(colors));
 
     // Adds X axis
     const fx = d3
@@ -106,6 +112,32 @@ function BarChart({ datas, width, height }) {
       .attr('width', x.bandwidth())
       .attr('height', (d) => y(0) - y(d.value))
       .attr('fill', (d) => d.color);
+
+    // Adds legend
+    const legend = svg
+      .append('g')
+      .attr('transform', `translate(${boundWidth - margin.right * 4},0)`)
+      .attr('text-anchor', 'end')
+      .attr('font-family', 'sans-serif')
+      .attr('font-size', 10)
+      .selectAll('g')
+      .data(Array.from(names))
+      .join('g')
+      .attr('class', 'legend-item')
+      .attr('transform', (d, i) => `translate(0, ${i * 20})`);
+    legend
+      .append('circle')
+      .attr('r', 5)
+      .attr('cx', 0)
+      .attr('cy', 10)
+      .style('fill', (d) => colorScale(d));
+    legend
+      .append('text')
+      .attr('x', 10)
+      .attr('y', 10)
+      .attr('dy', '.35em')
+      .style('text-anchor', 'start')
+      .text((d) => d);
   }, [barChartDatas, boundHeight, boundWidth]);
 
   return (

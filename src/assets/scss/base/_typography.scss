@@ -42,4 +42,20 @@
       font-weight: 500;
     }
   }
+
+  .bar-chart{
+    .tick {
+      text {
+        font-size: 14px;
+        font-weight: 700;
+      }
+    }
+
+    .tooltip-activity {  
+      span {
+        font-size: 11px;
+        color: #FFF;
+      }
+    }
+  }
 }

@@ -20,12 +20,14 @@ function BarChart({ datas, width, height }) {
       acc.push({
         day: d.day,
         value: d.kilogram,
-        name: 'Poids (kg)',
+        unit: 'kg',
+        name: `Poids (kg)`,
         color: '#000',
       });
       acc.push({
         day: d.day,
         value: d.calories,
+        unit: 'kCal',
         name: 'Calories brûlées (kCal)',
         color: '#E60000',
       });
@@ -33,7 +35,6 @@ function BarChart({ datas, width, height }) {
     },
     [],
   );
-  // console.log(barChartDatas);
 
   // Declares the chart dimensions and margins.
   const boundWidth = width - margin.right - margin.left;
@@ -43,13 +44,14 @@ function BarChart({ datas, width, height }) {
     const svg = d3.select(svgRef.current);
     svg.selectAll('*').remove();
 
-    // List of names
-    const names = new Set(barChartDatas.map((d) => d.name));
+    const groups = d3.group(barChartDatas, (d) => d.day);
+    const subgroups = new Set(barChartDatas.map((d) => d.name));
+
     // List of colors
     const colors = new Set(barChartDatas.map((d) => d.color));
     const colorScale = d3
       .scaleOrdinal()
-      .domain(Array.from(names))
+      .domain(Array.from(subgroups))
       .range(Array.from(colors));
 
     const svgTitle = 'Activité quotidienne';
@@ -62,18 +64,14 @@ function BarChart({ datas, width, height }) {
       .paddingInner(0.1);
     const x = d3
       .scaleBand()
-      .domain(names)
+      .domain(subgroups)
       .rangeRound([0, fx.bandwidth()])
       .padding(0.75);
     svg
       .append('g')
       .attr('transform', `translate(0,${boundHeight + margin.bottom})`)
       .call(d3.axisBottom(fx).tickSize(0).tickPadding(25))
-      .call((g) => g.selectAll('.domain').remove())
-      .selectAll('.tick text')
-      .style('font-size', '14px')
-      .style('font-weight', '700')
-      .attr('fill', '#9B9EAC');
+      .call((g) => g.selectAll('.domain').remove());
 
     // Adds Y axis
     const y = d3
@@ -94,23 +92,46 @@ function BarChart({ datas, width, height }) {
             `translate(-${boundWidth + margin.right + margin.left}, -0)`,
           )
           .attr('x1', (margin.right + margin.left) * 1.75)
-          .attr('x2', boundWidth - (margin.right + margin.left) * 0.35)
-          .attr('stroke', '#9B9EAC')
-          .attr('stroke-opacity', 0.5)
-          .attr('stroke-dasharray', '2,2'),
-      )
-      .selectAll('.tick text')
-      .style('font-size', '14px')
-      .style('font-weight', '700')
-      .attr('fill', '#9B9EAC');
+          .attr('x2', boundWidth - (margin.right + margin.left) * 0.35),
+      );
+
+    const mouseOver = (e, [key, data]) => {
+      const activity = data.reduce((acc, d) => {
+        acc.push(d.value + d.unit);
+        return acc;
+      }, []);
+
+      const topText = activity[0];
+      const bottomText = activity[1];
+
+      //Adds tooltip
+      const tooltip = d3
+        .select(e.target.parentNode)
+        .append('foreignObject')
+        .attr('class', 'tooltip-activity')
+        .attr('x', 90)
+        .attr('y', 40)
+        .attr('width', 50)
+        .attr('height', 70)
+        .append('xhtml:div')
+        .attr('xmlns', 'http://www.w3.org/1999/xhtml');
+      tooltip.append('xhtml:span').text(topText);
+      tooltip.append('xhtml:span').text(bottomText);
+    };
+
+    const mouseOut = (e) => {
+      d3.select(e.target.parentNode).select('.tooltip-activity').remove();
+    };
 
     // Appends a group for each day, and a rect for each name
-    svg
+    const barGroup = svg
       .append('g')
-      .selectAll()
-      .data(d3.group(barChartDatas, (d) => d.day))
+      .selectAll('.grouped-bars')
+      .data(groups)
       .join('g')
-      .attr('transform', ([day]) => `translate(${fx(day)},0)`)
+      .attr('class', 'grouped-bars')
+      .attr('transform', ([key, data]) => `translate(${fx(data[0].day)},0)`);
+    barGroup
       .selectAll()
       .data(([, d]) => d)
       .join('rect')
@@ -121,12 +142,25 @@ function BarChart({ datas, width, height }) {
       .attr('height', (d) => y(0) - y(d.value))
       .attr('fill', (d) => d.color);
 
+    const tooltipBar = d3
+      .selectAll('.grouped-bars')
+      .data(groups)
+      .append('rect');
+    tooltipBar
+      .attr('class', 'tooltip-bar')
+      .attr('x', 12)
+      .attr('y', 70)
+      .attr('width', 70)
+      .attr('height', 180)
+      .on('mouseover', mouseOver)
+      .on('mouseout', mouseOut);
+
     // Adds legend
     const legend = svg
       .append('g')
       .attr('transform', `translate(${boundWidth - margin.right * 4.5},0)`)
       .selectAll('g')
-      .data(Array.from(names))
+      .data(Array.from(subgroups))
       .join('g')
       .attr('transform', (d, i) => `translate(${i * 95}, 0)`);
     legend

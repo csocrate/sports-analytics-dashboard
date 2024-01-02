@@ -133,7 +133,7 @@ function LineChart({ datas }) {
   }, [datas]);
 
   return (
-    <div className="graphics__sessions">
+    <div className="blocks__sessions">
       <svg className="line-chart" ref={svgRef}></svg>
       <div className="tooltip">
         <p></p>

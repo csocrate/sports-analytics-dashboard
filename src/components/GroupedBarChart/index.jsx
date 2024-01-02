@@ -194,7 +194,7 @@ function BarChart({ datas, width, height }) {
   }, [barChartDatas, boundHeight, boundWidth]);
 
   return (
-    <div className="graphics__activity">
+    <div>
       <svg
         className="bar-chart"
         width={width}

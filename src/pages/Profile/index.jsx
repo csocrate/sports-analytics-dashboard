@@ -32,10 +32,14 @@ function Profile() {
           <p>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
         </div>
         <div className="graphics">
-          <GroupedBarChart datas={activityDatas} width={835} height={320} />
+          <div>
+            <GroupedBarChart datas={activityDatas} width={835} height={320} />
+            <div className="blocks">
+              <LineChart datas={sessionDatas} />
+              <RadialBarChart value={score} />
+            </div>
+          </div>
           <KeyDataCards datas={keyData} />
-          <LineChart datas={sessionDatas} />
-          <RadialBarChart value={score} />
         </div>
       </div>
     </div>

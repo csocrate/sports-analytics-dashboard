@@ -74,7 +74,7 @@ function RadialBarChart({ value }) {
   }, [value, width, height, radius]);
 
   return (
-    <div className="graphics__score">
+    <div className="blocks__score">
       <p>Score</p>
       <svg ref={ref}></svg>
     </div>

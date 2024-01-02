@@ -1,18 +1,24 @@
 .bar-chart {
   .tick {
     text {
-      fill: #9B9EAC;
+      fill: $color-bar-chart;
     }
 
     line {
-      stroke: #9B9EAC;
+      stroke: $color-bar-chart;
       stroke-opacity: .5;
       stroke-dasharray: 2.2;
+    }
+
+    &:first-of-type {
+      line {
+        stroke-dasharray: none;
+      }
     }
   }
 
   .tooltip-bar {
-    fill: rgb(128 128 128 / 50%);
+    fill: $bg-color-bar-chart-tooltip-bar;
     opacity: 0;
 
     &:hover {
@@ -28,7 +34,7 @@
       align-items: center;
       width: 100%;
       height: 100%;
-      background-color: #E60000;
+      background-color: $bg-color-bar-chart-tooltip-activity;
     }
   }
 }

@@ -7,7 +7,7 @@ import {
 import KeyDataCards from '../../components/KeyDataCards';
 import RadialBarChart from '../../components/RadialBarChart';
 import LineChart from '../../components/LineChart';
-import BarChart from '../../components/BarChart';
+import GroupedBarChart from '../../components/GroupedBarChart';
 
 function Profile() {
   const USER_ID = 18;
@@ -32,7 +32,7 @@ function Profile() {
           <p>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
         </div>
         <div className="graphics">
-          <BarChart datas={activityDatas} width={835} height={320} />
+          <GroupedBarChart datas={activityDatas} width={835} height={320} />
           <KeyDataCards datas={keyData} />
           <LineChart datas={sessionDatas} />
           <RadialBarChart value={score} />

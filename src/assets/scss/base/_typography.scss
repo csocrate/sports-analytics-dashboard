@@ -46,15 +46,15 @@
   .bar-chart{
     .tick {
       text {
-        font-size: 14px;
-        font-weight: 700;
+        font-size: $font-size-bar-chart;
+        font-weight: $font-weight-bar-chart;
       }
     }
 
     .tooltip-activity {  
       span {
-        font-size: 11px;
-        color: #FFF;
+        font-size: $font-size-bar-chart-tooltip;
+        color: $color-bar-chart-tooltip;
       }
     }
   }

@@ -23,7 +23,9 @@ $tertiary-color:                       #282D30;
 
 $blue:                                 rgba(74, 184, 255, .1); // #4AB8FF1A
 $dark:                                 rgba(32, 37, 58, .85); // 20253AD9
-$gray:                                 lighten($black, 77%); // #C4C4C4
+$gray:                                 #9B9EAC;
+$gray-light:                           rgba(196, 196, 196, .5);
+// $gray-light:                             lighten($black, 77%); // #C4C4C4
 $mauve:                                rgba(253, 81, 129, .15); // #FD518124;
 $pink:                                 lighten($primary-color, 50%); // #FFE6E6
 $yellow:                               rgba(249, 206, 35, .2); // #F9CE2333;
@@ -83,3 +85,12 @@ $bg-color-lipids:                      $mauve;
 $font-size-score:                      $font-size-normal;
 $font-weight-score:                    700;
 $color-p-score:                        $dark;
+
+//== Grouped bar chart ==
+$font-size-bar-chart:                  $font-size-normal * 1.4;
+$font-size-bar-chart-tooltip:          $font-size-normal * .687;
+$font-weight-bar-chart:                700;
+$color-bar-chart:                      $gray;
+$color-bar-chart-tooltip:              $white;
+$bg-color-bar-chart-tooltip-bar:       $gray-light;
+$bg-color-bar-chart-tooltip-activity:  $primary-color;

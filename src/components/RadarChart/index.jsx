@@ -5,27 +5,22 @@ import { useEffect, useRef } from 'react';
 function RadarChart({ datas, kinds, width, height }) {
   const svgRef = useRef(null);
 
-  // console.log(datas);
-  // console.log(kinds);
-
-  const axisConfig = Object.values(kinds).map(
+  const axisLabels = Object.values(kinds).map(
     (el) => el[0].toUpperCase() + el.slice(1),
   );
-  axisConfig.unshift(axisConfig.pop());
-  // console.log(axisConfig);
+  axisLabels.unshift(axisLabels.pop());
 
   // Defines ratio datas
   const maxValue = d3.max(datas, (d) => d.value);
   const datasWithRatio = d3.map(datas, (d) => ({
     ...d,
-    ratio: (d.value / maxValue).toFixed(1),
+    ratio: parseFloat((d.value / maxValue).toFixed(1)),
   }));
   const ratioDatas = datasWithRatio.reduce((acc, d) => {
     acc.push(d.ratio);
     return acc;
   }, []);
   ratioDatas.unshift(ratioDatas.pop());
-  // console.log(ratioDatas);
 
   const centerX = width / 2,
     centerY = height / 2,
@@ -105,115 +100,104 @@ function RadarChart({ datas, kinds, width, height }) {
           centerY,
       },
     ],
-    polygonPoints = points.map((point) => `${point.x},${point.y}`);
-  // console.log(polygonPoints);
+    polygonPoints = points.map((point) => `${point.x},${point.y}`),
+    radarDatas = ratioDatas.map((ratio, i) => ({
+      name: axisLabels[i],
+      ratioData: ratio,
+    })),
+    axisLines = radarDatas.map((axis, i) => ({
+      x1: centerX,
+      y1: centerY,
+      x2: Math.sin((i / numPoints) * Math.PI * 2 + Math.PI) * radius + centerX,
+      y2: Math.cos((i / numPoints) * Math.PI * 2 + Math.PI) * radius + centerY,
+      axeLabel: axis.name,
+    }));
 
   useEffect(() => {
     const svg = d3.select(svgRef.current);
     svg.selectAll('*').remove();
+    const graduations = [0.125, 0.25, 0.5, 0.75, 1];
 
-    //Draws the Circle
+    //Adds main polygon
     svg
-      .append('circle')
-      .attr('cx', centerX)
-      .attr('cy', centerY)
-      .attr('r', radius)
-      .style('stroke', 'white')
-      .style('fill', 'none');
+      .append('polygon')
+      .attr('class', 'main-polygon')
+      .attr('points', polygonPoints);
 
-    //Adds polygon
-    svg.append('polygon').attr('points', polygonPoints);
+    // Adds axis lines
+    svg
+      .selectAll('line')
+      .data(axisLines)
+      .join('line')
+      .attr('class', 'axis-line')
+      .attr('x1', (d) => d.x1)
+      .attr('y1', (d) => d.y1)
+      .attr('x2', (d) => d.x2)
+      .attr('y2', (d) => d.y2);
+    svg.selectAll('.axis-line').remove();
 
-    //Adds labels
-    svg
-      .append('text')
-      .attr('text-anchor', 'middle')
-      .attr(
-        'x',
-        Math.sin((0 / numPoints) * Math.PI * 2 + Math.PI) * radius + centerX,
-      )
-      .attr(
-        'y',
-        Math.cos((0 / numPoints) * Math.PI * 2 + Math.PI) * radius +
-          centerX -
-          10,
-      )
-      .text(axisConfig[0]);
-    svg
-      .append('text')
-      .attr('text-anchor', 'middle')
-      .attr(
-        'x',
-        Math.sin((1 / numPoints) * Math.PI * 2 + Math.PI) * radius +
-          centerX -
-          30,
-      )
-      .attr(
-        'y',
-        Math.cos((1 / numPoints) * Math.PI * 2 + Math.PI) * radius +
+    // Draws axis polygons corresponding to graduations
+    for (let i = 0; i < graduations.length; i++) {
+      const axisPolygons = radarDatas.map((axis, j) => ({
+        x:
           centerX +
-          10,
-      )
-      .text(axisConfig[1]);
-    svg
-      .append('text')
-      .attr('text-anchor', 'middle')
-      .attr(
-        'x',
-        Math.sin((2 / numPoints) * Math.PI * 2 + Math.PI) * radius +
-          centerX -
-          30,
-      )
-      .attr(
-        'y',
-        Math.cos((2 / numPoints) * Math.PI * 2 + Math.PI) * radius + centerX,
-      )
-      .text(axisConfig[2]);
-    svg
-      .append('text')
-      .attr('text-anchor', 'middle')
-      .attr(
-        'x',
-        Math.sin((3 / numPoints) * Math.PI * 2 + Math.PI) * radius + centerX,
-      )
-      .attr(
-        'y',
-        Math.cos((3 / numPoints) * Math.PI * 2 + Math.PI) * radius +
-          centerX +
-          25,
-      )
-      .text(axisConfig[3]);
-    svg
-      .append('text')
-      .attr('text-anchor', 'middle')
-      .attr(
-        'x',
-        Math.sin((4 / numPoints) * Math.PI * 2 + Math.PI) * radius +
-          centerX +
-          35,
-      )
-      .attr(
-        'y',
-        Math.cos((4 / numPoints) * Math.PI * 2 + Math.PI) * radius + centerX,
-      )
-      .text(axisConfig[4]);
-    svg
-      .append('text')
-      .attr('text-anchor', 'middle')
-      .attr(
-        'x',
-        Math.sin((5 / numPoints) * Math.PI * 2 + Math.PI) * radius +
-          centerX +
-          30,
-      )
-      .attr(
-        'y',
-        Math.cos((5 / numPoints) * Math.PI * 2 + Math.PI) * radius +
-          centerX +
-          10,
-      )
-      .text(axisConfig[5]);
-  }, [axisConfig, centerX, centerY, polygonPoints, radius]);
+          Math.sin((j / numPoints) * Math.PI * 2 + Math.PI) *
+            radius *
+            graduations[i],
+        y:
+          centerY +
+          Math.cos((j / numPoints) * Math.PI * 2 + Math.PI) *
+            radius *
+            graduations[i],
+      }));
+
+      svg
+        .append('polygon')
+        .attr('class', 'axis-polygon')
+        .attr(
+          'points',
+          axisPolygons.map((point) => `${point.x},${point.y}`),
+        );
+    }
+
+    // Adds labels
+    const labelPositions = [
+      { x: 0, y: -10 },
+      { x: -25, y: 0 },
+      { x: -25, y: 5 },
+      { x: 0, y: 15 },
+      { x: 28, y: 5 },
+      { x: 23, y: 0 },
+    ];
+
+    for (let i = 0; i < labelPositions.length; i++) {
+      svg
+        .append('text')
+        .attr('text-anchor', 'middle')
+        .attr(
+          'x',
+          Math.sin((i / numPoints) * Math.PI * 2 + Math.PI) * radius +
+            centerX +
+            labelPositions[i].x,
+        )
+        .attr(
+          'y',
+          Math.cos((i / numPoints) * Math.PI * 2 + Math.PI) * radius +
+            centerY +
+            labelPositions[i].y,
+        )
+        .text(axisLabels[i]);
+    }
+  }, [
+    radarDatas,
+    axisLabels,
+    centerX,
+    centerY,
+    polygonPoints,
+    radius,
+    ratioDatas,
+    axisLines,
+  ]);
 
   return (
     <div className="blocks__performance">

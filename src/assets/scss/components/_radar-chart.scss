@@ -1,9 +1,23 @@
 .radar-chart {
   border-radius: 5px;
-  fill: #FFF;
-  background-color: #282D30;
+  fill: $fill-radar-chart;
+  background-color: $bg-color-radar-chart;
 
   polygon {
-    fill: #E60000;
+    &.main-polygon {
+      fill: $fill-radar-chart-main-polygon;
+    }
+    &.axis-polygon {
+      fill: none;
+      stroke: $stroke-radar-chart-axis-polygon;
+      stroke-width: 5,5;
+    }
+  }
+
+  line {
+    &.axis-line {
+      stroke: $stroke-radar-chart-axis-line;
+      stroke-width: 5,5;
+    }
   }
 }

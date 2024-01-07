@@ -97,3 +97,8 @@ $bg-color-bar-chart-tooltip-activity:  $primary-color;
 
 //== Radar chart ==
 $font-size-radar-chart:                $font-size-normal * .675;
+$fill-radar-chart:                     $white;
+$fill-radar-chart-main-polygon:        $primary-color;
+$stroke-radar-chart-axis-polygon:      $white;
+$stroke-radar-chart-axis-line:         $black;
+$bg-color-radar-chart:                 $tertiary-color;

@@ -12,3 +12,8 @@ export const userAverageSessionsUri = (id) => {
   const uri = `user/${id}/average-sessions`;
   return uri;
 };
+      
+export const userPerformanceUri = (id) => {
+  const uri = `user/${id}/performance`;
+  return uri;
+};

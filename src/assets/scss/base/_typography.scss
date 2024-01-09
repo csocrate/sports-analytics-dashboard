@@ -35,11 +35,18 @@
     }
   }
 
-  .tooltip {
-    p {
-      font-size: .8em;
+  .line-chart {
+    text {
+      font-size: $font-size-line-chart-text;
+      fill: $fill-text;
+    }
+  }
+
+  .tooltip-session {
+    span {
+      font-size: $font-size-line-chart-tooltip;
       text-align: center;
-      font-weight: 500;
+      font-weight: $font-weight-line-chart-tooltip;
     }
   }
 

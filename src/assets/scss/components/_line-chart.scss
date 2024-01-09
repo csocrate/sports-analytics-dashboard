@@ -1,12 +1,7 @@
 .line-chart {
   border-radius: 5px;
-  fill: #FFF;
-  background-color: #E60000;
-
-  text {
-    font-size: 12px;
-    fill:#FFF;
-  }
+  fill: $fill-line-chart;
+  background-color: $bg-color-line-chart;
 
   .tooltip-dot {
     opacity: 0;
@@ -21,10 +16,10 @@
     opacity: 0;
 
     &.tooltip-rect {
-      fill: rgb(255 ,255, 255,.2);
+      fill: #E60000;
 
       &.visible {
-        opacity: 1;
+        opacity: .35;
       }
     }
   }

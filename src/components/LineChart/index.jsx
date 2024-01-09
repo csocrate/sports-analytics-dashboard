@@ -5,7 +5,6 @@ import * as d3 from 'd3';
 const margin = { top: 10, bottom: 30, left: 0, right: 0 };
 
 function LineChart({ datas }) {
-  // console.log(datas);
   const svgRef = useRef(null);
 
   useEffect(() => {
@@ -40,12 +39,26 @@ function LineChart({ datas }) {
       .line()
       .x((d) => x(d.day))
       .y((d) => y(d.sessionLength))
-      .curve(d3.curveBasis);
+      .curve(d3.curveCardinal.tension(0));
 
     const dayLetters = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
     const topTitle = 'Durée moyenne des';
     const bottomTitle = 'sessions';
-    const tooltip = d3.select('.tooltip');
+
+    svg
+      .attr('width', width)
+      .attr('height', height + margin.top + margin.bottom);
+
+    // Adds line
+    svg
+      .append('path')
+      .datum(datas)
+      .attr('fill', 'none')
+      .attr('stroke', '#FFF')
+      .attr('stroke-width', 1.5)
+      .attr('d', line);
+
+    const tooltip = d3.select('.tooltip-session');
     const tooltipGroup = svg.append('g');
 
     const tooltipDot = tooltipGroup
@@ -66,12 +79,10 @@ function LineChart({ datas }) {
 
     const mousePosition = (e) => {
       const mouseCoordinates = d3.pointer(e);
-      // console.log(mouseCoordinates);
       const xCoordinate = x.invert(mouseCoordinates[0]);
       const dayBisector = d3.bisector((d) => d.day).right;
       const index = dayBisector(datas, xCoordinate);
-      const currentData = datas[Math.max(0, index - 1)];
-      // console.log(currentData);
+      const currentData = datas[Math.max(0, index)];
 
       tooltipDot
         .classed('visible', true)
@@ -81,10 +92,13 @@ function LineChart({ datas }) {
 
       tooltip
         .classed('visible', true)
-        .style('top', `${y(currentData.sessionLength) - 50}px`)
-        .style('left', `${x(currentData.day)}px`);
+        .style('top', `${y(currentData.sessionLength) - 50}px`);
 
-      tooltip.select('p').text(`${currentData.sessionLength} min`);
+      currentData.day >= datas.length - 1
+        ? tooltip.style('left', `${x(currentData.day) - 70}px`)
+        : tooltip.style('left', `${x(currentData.day)}px`);
+
+      tooltip.select('span').text(`${currentData.sessionLength} min`);
 
       tooltipRect
         .classed('visible', true)
@@ -92,9 +106,11 @@ function LineChart({ datas }) {
         .attr('height', height + margin.top + margin.bottom);
     };
 
-    svg
-      .attr('width', width)
-      .attr('height', height + margin.top + margin.bottom);
+    const mouseLeave = () => {
+      tooltipDot.classed('visible', false);
+      tooltip.classed('visible', false);
+      tooltipRect.classed('visible', false);
+    };
 
     // Adds the x-axis
     svg
@@ -115,28 +131,20 @@ function LineChart({ datas }) {
     svg.append('text').attr('x', 30).attr('y', 45).text(topTitle);
     svg.append('text').attr('x', 30).attr('y', 65).text(bottomTitle);
 
-    // Adds line
-    svg
-      .append('path')
-      .datum(datas)
-      .attr('fill', 'none')
-      .attr('stroke', '#FFF')
-      .attr('stroke-width', 1.5)
-      .attr('d', line);
-
     // Adds a coverage area
     svg
       .append('rect')
       .attr('width', width)
       .attr('height', height + margin.top + margin.bottom)
-      .on('mousemove', mousePosition);
+      .on('mousemove', mousePosition)
+      .on('mouseleave', mouseLeave);
   }, [datas]);
 
   return (
     <div className="blocks__sessions">
       <svg className="line-chart" ref={svgRef}></svg>
-      <div className="tooltip">
-        <p></p>
+      <div className="tooltip-session">
+        <span></span>
       </div>
     </div>
   );

@@ -86,6 +86,14 @@ $font-size-score:                      $font-size-normal;
 $font-weight-score:                    700;
 $color-p-score:                        $dark;
 
+//== Line chart ==
+$font-size-line-chart-tooltip:         $font-size-normal * .75;
+$font-size-line-chart-text:            12px;
+$font-weight-line-chart-tooltip:       500;
+$fill-line-chart:                      $white;
+$fill-text:                            #EFEFEF;
+$bg-color-line-chart:                  #bb2222;
+
 //== Grouped bar chart ==
 $font-size-bar-chart:                  $font-size-normal * 1.4;
 $font-size-bar-chart-tooltip:          $font-size-normal * .687;

@@ -27,13 +27,6 @@
       color: $color-keydata-title;
     }
   }
-  .graphics__score {
-    p {
-      font-size: $font-size-score;
-      font-weight: $font-weight-score;
-      color: $color-p-score;
-    }
-  }
 
   .line-chart {
     text {
@@ -69,6 +62,31 @@
   .radar-chart {
     text {
       font-size: $font-size-radar-chart;
+    }
+  }
+
+  .radial-chart {
+    fill: $fill-radial-chart;
+
+    &__title {
+      font-size: $font-size-radial-chart-title;
+      font-weight: $font-weight-radial-chart-title;
+      fill: $fill-radial-chart-title;
+    }
+  
+    .score {
+      text-anchor: middle;
+  
+      &__top {
+        font-size: $font-size-radial-chart-score;
+        font-weight: $font-weight-radial-chart-score;
+        fill: $fill-radial-chart-score;
+      }
+  
+      &:not(.score__top) {
+        font-size: $font-size-radial-chart-text;
+        font-weight: $font-weight-radial-chart-text;  
+      }
     }
   }
 }

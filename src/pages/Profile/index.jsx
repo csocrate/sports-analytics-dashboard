@@ -56,14 +56,14 @@ function Profile() {
           <div>
             <GroupedBarChart datas={activityDatas} width={835} height={320} />
             <div className="blocks">
-              <LineChart datas={sessionDatas} />
+              <LineChart datas={sessionDatas} width={258} height={263} />
               <RadarChart
                 datas={performanceDatas}
                 kinds={performanceKinds}
                 width={258}
                 height={263}
               />
-              <RadialBarChart value={score} />
+              <RadialBarChart value={score} width={258} height={263} />
             </div>
           </div>
           <KeyDataCards datas={keyData} />

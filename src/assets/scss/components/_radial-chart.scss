@@ -1,0 +1,8 @@
+.radial-chart {
+  border-radius: 5px;
+  background-color: $bg-color-radial-chart;
+
+  path {
+    fill: $fill-radial-chart-bar;
+  }
+}

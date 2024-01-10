@@ -2,10 +2,12 @@ import PropTypes from 'prop-types';
 import * as d3 from 'd3';
 import { useEffect, useRef } from 'react';
 
-function RadialBarChart({ value }) {
-  const width = 200;
-  const height = width;
-  const radius = Math.min(width, height) / 2;
+const margin = { top: 0, bottom: 40, left: 50, right: 40 };
+
+function RadialBarChart({ value, width, height }) {
+  const boundWidth = width - margin.left - margin.right,
+    boundHeight = height + margin.top + margin.bottom;
+  const radius = Math.min(boundWidth, boundHeight) / 2;
 
   const ref = useRef();
 
@@ -16,73 +18,81 @@ function RadialBarChart({ value }) {
         svg.selectAll('*').remove(); // To avoid duplicated g element after page load
 
         const g = svg
-          .attr('width', '100%')
-          .attr('height', '100%')
           .append('g')
-          .attr('transform', `translate(${width / 2},${height / 2})`);
+          .attr(
+            'transform',
+            `translate(${boundWidth / 1.325},${boundHeight / 2.3})`,
+          );
 
-        const arc = d3
+        const radialBar = d3
           .arc()
           .innerRadius(radius - 10)
           .outerRadius(radius)
-          .startAngle(-value * Math.PI)
+          .startAngle(-value * Math.PI * 2)
           .endAngle(0)
           .cornerRadius(25);
 
-        g.append('path').attr('d', arc).attr('fill', '#E60000');
+        g.append('path').attr('d', radialBar);
 
-        const textContainer = g.append('g').attr('text-anchor', 'middle');
+        const textContainer = g.append('g').attr('class', 'score'),
+          topText = `${value * 100}%`,
+          centerText = 'de votre',
+          bottomText = 'objectif',
+          title = 'Score';
 
-        const topText = textContainer
+        textContainer
           .append('g')
-          .attr('transform', `translate(0, -20)`);
-
-        const centerText = textContainer
-          .append('g')
-          .attr('transform', `translate(0, 0)`);
-
-        const bottomText = textContainer
-          .append('g')
-          .attr('transform', `translate(0, 20)`);
-
-        const score = `${value * 100}%`;
-
-        topText
+          .attr('class', 'score__top')
+          .attr('transform', `translate(0, -20)`)
           .append('text')
-          .text(score)
-          .attr('fill', '#000')
-          .attr('y', '2')
-          .style('font-size', '1.75em')
-          .attr('font-weight', '700');
+          .text(topText)
+          .attr('y', '2');
 
-        centerText
+        textContainer
+          .append('g')
+          .attr('transform', `translate(0, 0)`)
           .append('text')
-          .text('de votre')
-          .attr('fill', '#74798C')
           .attr('y', '5')
-          .style('font-size', '.875em')
-          .attr('font-weight', '500');
+          .text(centerText);
 
-        bottomText
+        textContainer
+          .append('g')
+          .attr('transform', `translate(0, 20)`)
           .append('text')
-          .text('objectif')
-          .attr('fill', '#74798C')
           .attr('y', '7')
-          .style('font-size', '.875em')
-          .attr('font-weight', '500');
+          .text(bottomText);
+
+        svg
+          .append('text')
+          .attr('class', 'radial-chart__title')
+          .attr('x', 30)
+          .attr('y', 45)
+          .text(title);
       })();
-  }, [value, width, height, radius]);
+  }, [value, boundWidth, boundHeight, radius]);
 
   return (
     <div className="blocks__score">
-      <p>Score</p>
-      <svg ref={ref}></svg>
+      <svg
+        className="radial-chart"
+        width={width}
+        height={height}
+        ref={ref}
+      ></svg>
     </div>
   );
 }
 
 RadialBarChart.propTypes = {
   value: PropTypes.number,
+  width: PropTypes.number,
+  height: PropTypes.number,
+};
+
+RadialBarChart.defaultProps = {
+  value: '',
+  width: '',
+  height: '',
 };
 
 export default RadialBarChart;

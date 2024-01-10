@@ -19,11 +19,6 @@
   .blocks {
     display: flex;
     gap: 2rem;
-
-    &__score {
-      width: 200px;
-      height: 200px;
-    }
   
     &__sessions {
       position: relative;

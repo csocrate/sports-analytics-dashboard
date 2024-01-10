@@ -4,7 +4,7 @@ import * as d3 from 'd3';
 
 const margin = { top: 10, bottom: 30, left: 0, right: 0 };
 
-function LineChart({ datas }) {
+function LineChart({ datas, width, height }) {
   const svgRef = useRef(null);
 
   useEffect(() => {
@@ -12,17 +12,17 @@ function LineChart({ datas }) {
     svg.selectAll('*').remove();
 
     // Declares the chart dimensions and margins.
-    const width = 258 - margin.left - margin.right,
-      height = 263 - margin.top - margin.bottom;
+    const boundWidth = width - margin.left - margin.right,
+      boundHeight = height - margin.top - margin.bottom;
 
     // Declares the x (horizontal position) scale.
     const x = d3.scaleUtc(
       d3.extent(datas, (d) => d.day),
-      [margin.left, width - margin.right],
+      [margin.left, boundWidth - margin.right],
     );
     const xAxis = d3.scaleUtc(
       d3.extent(datas, (d) => d.day),
-      [margin.left + 20, width - (margin.left + 20)],
+      [margin.left + 20, boundWidth - (margin.left + 20)],
     );
 
     // Declares the y (vertical position) scale.
@@ -30,9 +30,9 @@ function LineChart({ datas }) {
       .scaleLinear()
       .domain(
         [0, d3.max(datas, (d) => d.sessionLength) * 2.5],
-        [height - margin.bottom, margin.top],
+        [boundHeight - margin.bottom, margin.top],
       )
-      .range([height, 0]);
+      .range([boundHeight, 0]);
 
     // Declares the line generator.
     const line = d3
@@ -46,8 +46,8 @@ function LineChart({ datas }) {
     const bottomTitle = 'sessions';
 
     svg
-      .attr('width', width)
-      .attr('height', height + margin.top + margin.bottom);
+      .attr('width', boundWidth)
+      .attr('height', boundHeight + margin.top + margin.bottom);
 
     // Adds line
     svg
@@ -75,7 +75,7 @@ function LineChart({ datas }) {
       .append('rect')
       .attr('class', 'tooltip-rect')
       .attr('width', '0')
-      .attr('height', height + margin.top + margin.bottom);
+      .attr('height', boundHeight + margin.top + margin.bottom);
 
     const mousePosition = (e) => {
       const mouseCoordinates = d3.pointer(e);
@@ -103,7 +103,7 @@ function LineChart({ datas }) {
       tooltipRect
         .classed('visible', true)
         .attr('width', x(currentData.day))
-        .attr('height', height + margin.top + margin.bottom);
+        .attr('height', boundHeight + margin.top + margin.bottom);
     };
 
     const mouseLeave = () => {
@@ -115,7 +115,7 @@ function LineChart({ datas }) {
     // Adds the x-axis
     svg
       .append('g')
-      .attr('transform', `translate(0, ${height})`)
+      .attr('transform', `translate(0, ${boundHeight})`)
       .call(
         d3
           .axisBottom(x)
@@ -134,11 +134,11 @@ function LineChart({ datas }) {
     // Adds a coverage area
     svg
       .append('rect')
-      .attr('width', width)
-      .attr('height', height + margin.top + margin.bottom)
+      .attr('width', boundWidth)
+      .attr('height', boundHeight + margin.top + margin.bottom)
       .on('mousemove', mousePosition)
       .on('mouseleave', mouseLeave);
-  }, [datas]);
+  }, [datas, width, height]);
 
   return (
     <div className="blocks__sessions">
@@ -152,10 +152,14 @@ function LineChart({ datas }) {
 
 LineChart.propTypes = {
   datas: PropTypes.array,
+  width: PropTypes.number,
+  height: PropTypes.number,
 };
 
 LineChart.defaultProps = {
   datas: [],
+  width: '',
+  height: '',
 };
 
 export default LineChart;

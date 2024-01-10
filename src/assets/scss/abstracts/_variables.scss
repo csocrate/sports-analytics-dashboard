@@ -82,9 +82,17 @@ $bg-color-carbohydrates:               $yellow;
 $bg-color-lipids:                      $mauve;
 
 //== Radial bar chart ==
-$font-size-score:                      $font-size-normal;
-$font-weight-score:                    700;
-$color-p-score:                        $dark;
+$font-size-radial-chart-title:         $font-size-normal * .975;
+$font-size-radial-chart-score:         $font-size-normal * 1.65;
+$font-size-radial-chart-text:          $font-size-normal * .975;
+$font-weight-radial-chart-title:       700;
+$font-weight-radial-chart-score:       700;
+$font-weight-radial-chart-text:        500;
+$fill-radial-chart:                    #74798C;
+$fill-radial-chart-title:              #20253A;
+$fill-radial-chart-score:              $black;
+$fill-radial-chart-bar:                $primary-color;
+$bg-color-radial-chart:                $white;
 
 //== Line chart ==
 $font-size-line-chart-tooltip:         $font-size-normal * .75;

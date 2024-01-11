@@ -120,7 +120,6 @@ function LineChart({ datas, width, height }) {
         d3
           .axisBottom(x)
           .scale(xAxis)
-          .tickValues([1, 2, 3, 4, 5, 6, 7])
           .tickFormat((d) => dayLetters[d - 1])
           .tickSize(0)
           .tickPadding(1),
@@ -158,8 +157,8 @@ LineChart.propTypes = {
 
 LineChart.defaultProps = {
   datas: [],
-  width: '',
-  height: '',
+  width: 258,
+  height: 263,
 };
 
 export default LineChart;

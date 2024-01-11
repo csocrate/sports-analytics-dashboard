@@ -100,7 +100,6 @@ function RadarChart({ datas, kinds, width, height }) {
           centerY,
       },
     ],
-    polygonPoints = points.map((point) => `${point.x},${point.y}`),
     radarDatas = ratioDatas.map((ratio, i) => ({
       name: axisLabels[i],
       ratioData: ratio,
@@ -111,7 +110,16 @@ function RadarChart({ datas, kinds, width, height }) {
       x2: Math.sin((i / numPoints) * Math.PI * 2 + Math.PI) * radius + centerX,
       y2: Math.cos((i / numPoints) * Math.PI * 2 + Math.PI) * radius + centerY,
       axeLabel: axis.name,
-    }));
+    })),
+    polygonPoints = points.map((point) => `${point.x},${point.y}`);
+
+  const mainPolygon = polygonPoints.map((coord) =>
+    coord.split(',').map(Number),
+  );
+  // Avoids NaN error on <polygon> attribute points
+  const polygonNbPoints = mainPolygon.filter(
+    (coordPoints) => !coordPoints.some(isNaN),
+  );
 
   useEffect(() => {
     const svg = d3.select(svgRef.current);
@@ -122,7 +130,7 @@ function RadarChart({ datas, kinds, width, height }) {
     svg
       .append('polygon')
       .attr('class', 'main-polygon')
-      .attr('points', polygonPoints);
+      .attr('points', polygonNbPoints);
 
     // Adds axis lines
     svg
@@ -193,7 +201,7 @@ function RadarChart({ datas, kinds, width, height }) {
     axisLabels,
     centerX,
     centerY,
-    polygonPoints,
+    polygonNbPoints,
     radius,
     ratioDatas,
     axisLines,
@@ -221,7 +229,7 @@ RadarChart.propTypes = {
 RadarChart.defaultProps = {
   datas: [],
   kinds: {},
-  width: '',
-  height: '',
+  width: 258,
+  height: 263,
 };
 export default RadarChart;

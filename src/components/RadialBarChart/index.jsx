@@ -90,9 +90,8 @@ RadialBarChart.propTypes = {
 };
 
 RadialBarChart.defaultProps = {
-  value: '',
-  width: '',
-  height: '',
+  width: 258,
+  height: 263,
 };
 
 export default RadialBarChart;

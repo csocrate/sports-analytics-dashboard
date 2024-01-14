@@ -6,6 +6,10 @@
   gap: 1.5rem;
   margin: 1rem;
 
+  &:first-child {
+    margin-top: 0;
+  }
+
   div {
     &:first-child {
       order: 2;

@@ -20,7 +20,7 @@ function Profile() {
   return (
     <div className="profile">
       <div>
-        <div>
+        <div className="profile-header">
           <h1>
             <span>Bonjour</span>
             <span>{firstName}</span>
@@ -29,16 +29,16 @@ function Profile() {
         </div>
         <div className="graphics">
           <div>
-            <GroupedBarChart datas={activityDatas} width={835} height={320} />
+            <GroupedBarChart datas={activityDatas} width={600} height={350} />
             <div className="blocks">
-              <LineChart datas={sessionDatas} width={258} height={263} />
+              <LineChart datas={sessionDatas} width={185} height={190} />
               <RadarChart
                 datas={performanceDatas}
                 kinds={performanceKinds}
-                width={258}
-                height={263}
+                width={185}
+                height={190}
               />
-              <RadialBarChart value={score} width={258} height={263} />
+              <RadialBarChart value={score} width={185} height={190} />
             </div>
           </div>
           <KeyDataCards datas={keyData} />

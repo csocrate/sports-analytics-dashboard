@@ -185,7 +185,7 @@ function BarChart({ datas, width, height }) {
       .attr('transform', `translate(${boundHeight - margin.top * 2.35},0)`);
     title
       .append('text')
-      .attr('x', -30)
+      .attr('x', -60)
       .attr('y', 15)
       .text(svgTitle)
       .style('font-size', '15px')
@@ -194,13 +194,8 @@ function BarChart({ datas, width, height }) {
   }, [barChartDatas, boundHeight, boundWidth]);
 
   return (
-    <div>
-      <svg
-        className="bar-chart"
-        width={width}
-        height={height}
-        ref={svgRef}
-      ></svg>
+    <div className="bar-chart">
+      <svg width={width} height={height} ref={svgRef}></svg>
     </div>
   );
 }

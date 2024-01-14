@@ -6,9 +6,9 @@
   * Breakpoints
   * 
   */
-$breakpoint-lg:                       '1024px'; 
-$breakpoint-xl:                       '1400px';
-$breakpoint-xxl:                      '1600px';
+$breakpoint-lg:                        1024px;
+$breakpoint-xxl:                       1600px;
+  
 
 /**
   * Colors
@@ -58,14 +58,15 @@ $bg-color-body:                        $white;
   */
 
 //== h1 ==
-$font-size-h1-user-lg:                 $font-size-normal * 3;
+$font-size-h1-user-lg:                 $font-size-normal * 2.5;
 $font-size-h1-user-line-height:        $line-height-normal * 1.5;
 $font-weight-h1-user:                  500;
 $font-size-h1-firstname-color:         $primary-color;
 
 //== p ==
 $font-size-p-user-lg:                  $font-size-normal * 1.125;
-$font-size-p-user-line-height:         $line-height-normal * 1.5;
+$line-height-p-user:                   $line-height-normal * 1.5;
+$font-weight-p-user-:                  500;
 
 // --------------------------------------------------
 // COMPONENTS
@@ -83,8 +84,8 @@ $bg-color-lipids:                      $mauve;
 
 //== Radial bar chart ==
 $font-size-radial-chart-title:         $font-size-normal * .975;
-$font-size-radial-chart-score:         $font-size-normal * 1.65;
-$font-size-radial-chart-text:          $font-size-normal * .975;
+$font-size-radial-chart-score:         $font-size-normal * 1.5;
+$font-size-radial-chart-text:          $font-size-normal * .875;
 $font-weight-radial-chart-title:       700;
 $font-weight-radial-chart-score:       700;
 $font-weight-radial-chart-text:        500;
@@ -112,7 +113,8 @@ $bg-color-bar-chart-tooltip-bar:       $gray-light;
 $bg-color-bar-chart-tooltip-activity:  $primary-color;
 
 //== Radar chart ==
-$font-size-radar-chart:                $font-size-normal * .675;
+$font-size-radar-chart:                $font-size-normal * .6;
+// $font-size-radar-chart:                $font-size-normal * .675;
 $fill-radar-chart:                     $white;
 $fill-radar-chart-main-polygon:        $primary-color;
 $stroke-radar-chart-axis-polygon:      $white;

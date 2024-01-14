@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import * as d3 from 'd3';
 import { useEffect, useRef } from 'react';
 
-const margin = { top: 0, bottom: 40, left: 50, right: 40 };
+const margin = { top: 0, bottom: 40, left: 30, right: 30 };
 
 function RadialBarChart({ value, width, height }) {
   const boundWidth = width - margin.left - margin.right,
@@ -21,12 +21,12 @@ function RadialBarChart({ value, width, height }) {
           .append('g')
           .attr(
             'transform',
-            `translate(${boundWidth / 1.325},${boundHeight / 2.3})`,
+            `translate(${boundWidth / 1.35},${boundHeight / 2.3})`,
           );
 
         const radialBar = d3
           .arc()
-          .innerRadius(radius - 10)
+          .innerRadius(radius - 8)
           .outerRadius(radius)
           .startAngle(-value * Math.PI * 2)
           .endAngle(0)
@@ -46,13 +46,13 @@ function RadialBarChart({ value, width, height }) {
           .attr('transform', `translate(0, -20)`)
           .append('text')
           .text(topText)
-          .attr('y', '2');
+          .attr('y', '12');
 
         textContainer
           .append('g')
           .attr('transform', `translate(0, 0)`)
           .append('text')
-          .attr('y', '5')
+          .attr('y', '10')
           .text(centerText);
 
         textContainer
@@ -66,7 +66,7 @@ function RadialBarChart({ value, width, height }) {
           .append('text')
           .attr('class', 'radial-chart__title')
           .attr('x', 30)
-          .attr('y', 45)
+          .attr('y', 30)
           .text(title);
       })();
   }, [value, boundWidth, boundHeight, radius]);

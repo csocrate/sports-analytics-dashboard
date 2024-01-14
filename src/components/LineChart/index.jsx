@@ -122,13 +122,13 @@ function LineChart({ datas, width, height }) {
           .scale(xAxis)
           .tickFormat((d) => dayLetters[d - 1])
           .tickSize(0)
-          .tickPadding(1),
+          .tickPadding(15),
       )
       .select('.domain')
       .remove();
 
-    svg.append('text').attr('x', 30).attr('y', 45).text(topTitle);
-    svg.append('text').attr('x', 30).attr('y', 65).text(bottomTitle);
+    svg.append('text').attr('x', 30).attr('y', 35).text(topTitle);
+    svg.append('text').attr('x', 30).attr('y', 55).text(bottomTitle);
 
     // Adds a coverage area
     svg

@@ -1,14 +1,22 @@
 .profile {
-  min-width: $breakpoint-lg;
-  min-height: 780px;
-  max-width: $breakpoint-xxl;
+  width: 100%;
 
   > div {
-    width: 90%;
-    margin: 3rem auto;
+    min-width: $breakpoint-lg;
+    min-height: 780px;
+    max-width: $breakpoint-xxl;
+    margin-top: 2.75rem;
 
-    h1 {
-      margin-bottom: 1rem;
-    }
+    div {
+
+      &.profile-header {
+        width: 75%;
+        margin: 0 auto;
+        padding-bottom: 1rem;
+        
+        h1 {
+          margin-bottom: 1rem;
+        }
+      }}
   }
 }

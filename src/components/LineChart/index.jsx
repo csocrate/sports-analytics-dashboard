@@ -79,10 +79,16 @@ function LineChart({ datas, width, height }) {
 
     const mousePosition = (e) => {
       const mouseCoordinates = d3.pointer(e);
-      const xCoordinate = x.invert(mouseCoordinates[0]);
-      const dayBisector = d3.bisector((d) => d.day).right;
-      const index = dayBisector(datas, xCoordinate);
-      const currentData = datas[Math.max(0, index)];
+      const xScale = d3.scaleBand(
+        datas.map((d) => d.day),
+        [0, boundWidth + margin.left + margin.right],
+      );
+
+      const xPos = mouseCoordinates[0];
+      const eachBand = xScale.bandwidth();
+      let index = Math.floor(xPos / eachBand);
+      if (index <= 0) index = 0;
+      const currentData = datas[index];
 
       tooltipDot
         .classed('visible', true)

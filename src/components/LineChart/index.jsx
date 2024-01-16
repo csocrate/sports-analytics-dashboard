@@ -1,9 +1,26 @@
+/**
+ * ------------------------------------------------------------
+ * Sports Analytics Dashboard - components/LineChart
+ * ------------------------------------------------------------
+ */
+
 import PropTypes from 'prop-types';
 import { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
 const margin = { top: 10, bottom: 30, left: 0, right: 0 };
 
+/**
+ * This component renders user's average session duration
+ * as a line chart.
+ *
+ * @component
+ * @param {Object} props - Props for the component.
+ *  @param {Array} props.datas - Data for the chart.
+ *  @param {number} props.width - Width of the chart.
+ *  @param {number} props.height - Height of the chart.
+ * @returns {JSX.Element} Chart component.
+ */
 function LineChart({ datas, width, height }) {
   const svgRef = useRef(null);
 

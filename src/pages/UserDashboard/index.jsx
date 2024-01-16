@@ -1,3 +1,9 @@
+/**
+ * ------------------------------------------------------------
+ * Sports Analytics Dashboard - pages/UserDashboard
+ * ------------------------------------------------------------
+ */
+
 import KeyDataCards from '../../components/KeyDataCards';
 import RadialBarChart from '../../components/RadialBarChart';
 import LineChart from '../../components/LineChart';
@@ -5,7 +11,13 @@ import GroupedBarChart from '../../components/GroupedBarChart';
 import RadarChart from '../../components/RadarChart';
 import DatasServices from '../../services/DatasServices';
 
-function Profile() {
+/**
+ * This component renders user's dashboard on sports analytics.
+ *
+ * @component
+ * @returns {JSX.Element} User's dashboard page component.
+ */
+function UserDashboard() {
   const { userMainData, userActivity, userSessions, userPerformance } =
     DatasServices();
 
@@ -18,9 +30,9 @@ function Profile() {
   const performanceKinds = userPerformance?.kind;
 
   return (
-    <div className="profile">
+    <div className="user-dashboard">
       <div>
-        <div className="profile-header">
+        <div className="dashboard-header">
           <h1>
             <span>Bonjour</span>
             <span>{firstName}</span>
@@ -29,7 +41,7 @@ function Profile() {
         </div>
         <div className="graphics">
           <div>
-            <GroupedBarChart datas={activityDatas} width={600} height={350} />
+            <GroupedBarChart datas={activityDatas} width={600} height={320} />
             <div className="blocks">
               <LineChart datas={sessionDatas} width={185} height={190} />
               <RadarChart
@@ -48,4 +60,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default UserDashboard;

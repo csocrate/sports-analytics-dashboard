@@ -1,9 +1,26 @@
+/**
+ * ------------------------------------------------------------
+ * Sports Analytics Dashboard - components/RadialBarChart
+ * ------------------------------------------------------------
+ */
+
 import PropTypes from 'prop-types';
 import * as d3 from 'd3';
 import { useEffect, useRef } from 'react';
 
 const margin = { top: 0, bottom: 40, left: 30, right: 30 };
 
+/**
+ * This component renders user's achievement of the day's goal
+ * as a radial bar chart.
+ *
+ * @component
+ * @param {Object} props - Props for the component.
+ *  @param {number} props.value - Value for the chart.
+ *  @param {number} props.width - Width of the chart.
+ *  @param {number} props.height - Height of the chart.
+ * @returns {JSX.Element} Chart component.
+ */
 function RadialBarChart({ value, width, height }) {
   const boundWidth = width - margin.left - margin.right,
     boundHeight = height + margin.top + margin.bottom;

@@ -1,10 +1,16 @@
+/**
+ * ------------------------------------------------------------
+ * Sports Analytics Dashboard - services/DatasServices.jsx
+ * ------------------------------------------------------------
+ */
+
 import { useMockedDatas } from '../hooks/useMockedDatas';
 import {
   USER_ACTIVITY,
   USER_AVERAGE_SESSIONS,
   USER_MAIN_DATA,
   USER_PERFORMANCE,
-} from '../mocks/userData';
+} from '../mocks/userDatas';
 import { useDatasApi } from '../hooks/useDatasApi';
 import {
   USER_MAIN_URI,
@@ -15,6 +21,17 @@ import {
 } from '../constants/apiConstants';
 import { USER_ID } from '../constants/userConstants';
 
+/**
+ * This component retrieves and returns user data for sports analytics.
+ *
+ * @component
+ * @returns {{
+ *  userMainData: Object,
+ *  userActivity: Object,
+ *  userSessions: Object,
+ *  userPerformance: Object,
+ * }}
+ */
 function DatasServices() {
   const mainDatasApi = useDatasApi(USER_MAIN_URI);
   const activityDatasApi = useDatasApi(USER_ACTIVITY_URI);

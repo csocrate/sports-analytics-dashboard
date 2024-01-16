@@ -1,5 +1,11 @@
+/**
+ * ------------------------------------------------------------
+ * Sports Analytics Dashboard - App.jsx
+ * ------------------------------------------------------------
+ */
+
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import Profile from './pages/Profile';
+import UserDashboard from './pages/UserDashboard';
 import Root from './routes';
 
 const router = createBrowserRouter([
@@ -8,13 +14,18 @@ const router = createBrowserRouter([
     element: <Root />,
     children: [
       {
-        path: 'profile',
-        element: <Profile />,
+        path: 'tableau-de-bord',
+        element: <UserDashboard />,
       },
     ],
   },
 ]);
 
+/**
+ * This component renders the application.
+ *
+ * @returns {JSX.Element} RouterProvider component.
+ */
 function App() {
   return (
     <>

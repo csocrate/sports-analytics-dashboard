@@ -1,4 +1,4 @@
-.profile {
+.user-dashboard {
   h1 {
     font-size: $font-size-h1-user-lg;
     font-weight: $font-weight-h1-user;
@@ -31,7 +31,7 @@
   .line-chart {
     text {
       font-size: $font-size-line-chart-text;
-      fill: $fill-text;
+      fill: $fill-line-chart-text;
     }
   }
 

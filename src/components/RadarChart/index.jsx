@@ -1,7 +1,25 @@
+/**
+ * ------------------------------------------------------------
+ * Sports Analytics Dashboard - components/RadarChart
+ * ------------------------------------------------------------
+ */
+
 import PropTypes from 'prop-types';
 import * as d3 from 'd3';
 import { useEffect, useRef } from 'react';
 
+/**
+ * This component renders user activity types
+ * as a radar chart.
+ *
+ * @component
+ * @param {Object} props - Props for the component.
+ *  @param {Array} props.datas - Data for the chart.
+ *  @param {Object} props.kinds - Kinds for the chart.
+ *  @param {number} props.width - Width of the chart.
+ *  @param {number} props.height - Height of the chart.
+ * @returns {JSX.Element} Chart component.
+ */
 function RadarChart({ datas, kinds, width, height }) {
   const svgRef = useRef(null);
 

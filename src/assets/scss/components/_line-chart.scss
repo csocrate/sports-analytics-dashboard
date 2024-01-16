@@ -16,7 +16,7 @@
     opacity: 0;
 
     &.tooltip-rect {
-      fill: #E60000;
+      fill: $fill-line-chart-tooltip-rect;
 
       &.visible {
         opacity: .35;

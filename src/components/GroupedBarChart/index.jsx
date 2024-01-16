@@ -1,10 +1,27 @@
+/**
+ * ------------------------------------------------------------
+ * Sports Analytics Dashboard - components/GroupedBarChart
+ * ------------------------------------------------------------
+ */
+
 import PropTypes from 'prop-types';
 import { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
 const margin = { top: 70, bottom: 20, left: 10, right: 40 };
 
-function BarChart({ datas, width, height }) {
+/**
+ * This component renders user's daily activity
+ * as a grouped bar chart.
+ *
+ * @component
+ * @param {Object} props - Props for the component.
+ *  @param {Array} props.datas - Data for the chart.
+ *  @param {number} props.width - Width of the chart.
+ *  @param {number} props.height - Height of the chart.
+ * @returns {JSX.Element} Chart component.
+ */
+function GroupedBarChart({ datas, width, height }) {
   const svgRef = useRef(null);
 
   const datasUpdated = d3.map(new Set(datas), (d) => {
@@ -95,7 +112,8 @@ function BarChart({ datas, width, height }) {
           .attr('x2', boundWidth - (margin.right + margin.left) * 0.35),
       );
 
-    const mouseOver = (e, [key, data]) => {
+    // key disabled on [key, data] for eslint
+    const mouseOver = (e, [, data]) => {
       const activity = data.reduce((acc, d) => {
         acc.push(d.value + d.unit);
         return acc;
@@ -130,7 +148,9 @@ function BarChart({ datas, width, height }) {
       .data(groups)
       .join('g')
       .attr('class', 'grouped-bars')
-      .attr('transform', ([key, data]) => `translate(${fx(data[0].day)},0)`);
+      .attr('transform', ([, data]) => `translate(${fx(data[0].day)},0)`);
+    // key disabled on [key, data] for eslint
+
     barGroup
       .selectAll()
       .data(([, d]) => d)
@@ -200,16 +220,16 @@ function BarChart({ datas, width, height }) {
   );
 }
 
-BarChart.propTypes = {
+GroupedBarChart.propTypes = {
   datas: PropTypes.array,
   width: PropTypes.number,
   height: PropTypes.number,
 };
 
-BarChart.defaultProps = {
+GroupedBarChart.defaultProps = {
   datas: [],
-  width: '',
-  height: '',
+  width: 600,
+  height: 320,
 };
 
-export default BarChart;
+export default GroupedBarChart;

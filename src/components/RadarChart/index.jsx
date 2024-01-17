@@ -247,7 +247,7 @@ RadarChart.propTypes = {
 RadarChart.defaultProps = {
   datas: [],
   kinds: {},
-  width: 258,
-  height: 263,
+  width: 200,
+  height: 205,
 };
 export default RadarChart;

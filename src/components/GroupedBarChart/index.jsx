@@ -171,7 +171,7 @@ function GroupedBarChart({ datas, width, height }) {
       .attr('x', 12)
       .attr('y', 70)
       .attr('width', 70)
-      .attr('height', 180)
+      .attr('height', 240)
       .on('mouseover', mouseOver)
       .on('mouseout', mouseOut);
 
@@ -202,7 +202,7 @@ function GroupedBarChart({ datas, width, height }) {
     // Adds title
     const title = svg
       .append('g')
-      .attr('transform', `translate(${boundHeight - margin.top * 2.35},0)`);
+      .attr('transform', `translate(${boundHeight - margin.top * 2.75},0)`);
     title
       .append('text')
       .attr('x', -60)
@@ -228,8 +228,8 @@ GroupedBarChart.propTypes = {
 
 GroupedBarChart.defaultProps = {
   datas: [],
-  width: 600,
-  height: 320,
+  width: 650,
+  height: 380,
 };
 
 export default GroupedBarChart;

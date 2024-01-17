@@ -1,14 +1,25 @@
 .graphics {
   display: flex;
-  min-height: 32rem;
   margin-top: 3rem;
   margin-bottom: 3rem;
-  width: 75%;
-  margin: 0 auto;
   padding-top: 1rem;
   padding-bottom: 4rem;
 
-  &__key-data {
+  &__left {
+
+    .blocks {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+    
+      &__sessions {
+        position: relative;
+      }
+    }
+  }
+
+
+  &__right {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -17,14 +28,5 @@
     margin-right: 1rem;
     margin-top: 0;
     margin-bottom: 0;
-  }
-
-  .blocks {
-    display: flex;
-    gap: 1rem;
-  
-    &__sessions {
-      position: relative;
-    }
   }
 }

@@ -40,20 +40,22 @@ function UserDashboard() {
           <p>Félicitation ! Vous avez explosé vos objectifs hier 👏</p>
         </div>
         <div className="graphics">
-          <div>
-            <GroupedBarChart datas={activityDatas} width={600} height={320} />
+          <div className="graphics__left">
+            <GroupedBarChart datas={activityDatas} width={650} height={380} />
             <div className="blocks">
-              <LineChart datas={sessionDatas} width={185} height={190} />
+              <LineChart datas={sessionDatas} width={200} height={205} />
               <RadarChart
                 datas={performanceDatas}
                 kinds={performanceKinds}
-                width={185}
-                height={190}
+                width={200}
+                height={205}
               />
-              <RadialBarChart value={score} width={185} height={190} />
+              <RadialBarChart value={score} width={200} height={205} />
             </div>
           </div>
-          <KeyDataCards datas={keyData} />
+          <div className="graphics__right">
+            <KeyDataCards datas={keyData} />
+          </div>
         </div>
       </div>
     </div>

@@ -2,16 +2,18 @@
   width: 100%;
 
   > div {
-    min-width: $breakpoint-lg;
-    min-height: 780px;
-    max-width: $breakpoint-xxl;
-    margin-top: 2.75rem;
+
+    @media screen and (min-width: $breakpoint-lg) and (min-height: 780px) {
+      width: 75%;
+      margin: 0 auto;
+      padding-bottom: 2.75rem;
+      padding-top: 2.75rem;
+      max-width: $breakpoint-xl;
+    }
 
     div {
 
       &.dashboard-header {
-        width: 75%;
-        margin: 0 auto;
         padding-bottom: 1rem;
         
         h1 {

@@ -23,7 +23,7 @@ function KeyDataCards({ datas }) {
   const lipids = datas && datas.lipidCount;
 
   return (
-    <div className="graphics__key-data">
+    <>
       <KeyDataCard
         className="calories"
         number={calories}
@@ -48,7 +48,7 @@ function KeyDataCards({ datas }) {
         unit="g"
         title="Lipides"
       />
-    </div>
+    </>
   );
 }
 

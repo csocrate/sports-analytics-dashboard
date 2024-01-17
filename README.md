@@ -33,3 +33,13 @@ This will allow user to track the number of sessions performed and the number of
 - Launch with:
   - `npm run dev`.
   - Local: `http://localhost:5173/tableau-de-bord`.
+
+## Using the project
+
+The project is running with data API, to use mocked data:
+
+- Navigate to `src/constants/apiConstants.js` file and replace `true` by `false` on `DATAS_API` constant.
+
+To update the user profile:
+
+- Go to `src/constants/userConstants.js` file and replace the value of `USER_ID` constant with an available value.

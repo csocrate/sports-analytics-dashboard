@@ -7,6 +7,7 @@
 import { USER_ID } from "./userConstants";
 
 export const DATAS_API = true;
+if (DATAS_API !== true) console.log('You are using mocked data');
 
 export const USER_MAIN_URI = userMainDataUri(USER_ID);
 export const USER_ACTIVITY_URI = userActivityUri(USER_ID);

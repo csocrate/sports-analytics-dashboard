@@ -7,6 +7,7 @@ This will allow user to track the number of sessions performed and the number of
 
 - React + Vite.
 - React router.
+- Graphics: [D3js](https://d3js.org/)
 - Styling: Sass.
 
 ## Mission

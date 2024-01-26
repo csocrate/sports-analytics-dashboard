@@ -28,8 +28,14 @@ function UserDashboard() {
   const activityDatas = userActivity?.sessions;
   const performanceDatas = userPerformance?.data;
   const performanceKinds = userPerformance?.kind;
+  const error =
+    userMainData === null &&
+    userSessions === null &&
+    userActivity === null &&
+    userPerformance === null;
+  const userErrorMessage = `Une erreur s'est produite. Veuillez-nous en excuser.`;
 
-  return (
+  return !error ? (
     <div className="user-dashboard">
       <div>
         <div className="dashboard-header">
@@ -58,6 +64,10 @@ function UserDashboard() {
           </div>
         </div>
       </div>
+    </div>
+  ) : (
+    <div className="error-message">
+      <p>{userErrorMessage}</p>
     </div>
   );
 }

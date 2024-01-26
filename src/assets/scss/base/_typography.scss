@@ -90,3 +90,11 @@
     }
   }
 }
+
+.error-message {
+  p {
+    font-size: $font-size-error-message-lg;
+    font-weight: $font-weight-error-message;
+    line-height: $line-height-error-message;
+  }
+}
